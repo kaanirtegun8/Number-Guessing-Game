@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Text, StyleSheet, View, Alert } from "react-native";
+import { Text, StyleSheet, View,useWindowDimensions } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import Title from "../components/Title";
 import Colors from "../constants/colors";
@@ -37,8 +37,12 @@ const GameScreen = ({ userNumber, isTheGameOver }) => {
     setCounter((previous) => previous + 1);
   };
 
+  const {width, height} = useWindowDimensions();
+
+  const marginTopDistance = height < 580 ? 0 : 100;
+
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, {marginTop: marginTopDistance}]}>
       <Title title={`Opponent's Guess`}></Title>
       <View style={styles.guessContainer}>
         <Text style={styles.randomNumber}> {generatedNumber} </Text>
@@ -63,6 +67,7 @@ const GameScreen = ({ userNumber, isTheGameOver }) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   screen: {

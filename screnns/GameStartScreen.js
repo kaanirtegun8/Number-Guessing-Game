@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextInput, View, StyleSheet, Alert } from "react-native";
+import { TextInput, View, StyleSheet, Alert, KeyboardAvoidingView, ScrollView } from "react-native";
 import Colors from "../constants/colors";
 import PrimaryButton from "../components/PrimaryButton";
 import Title from "../components/Title";
@@ -28,32 +28,39 @@ const GameStartScreen = (props) => {
   };
 
   return (
-    <View style={styles.inputContainer}>
-      <Title title={'Choose Number'} ></Title>
-      <View style={styles.numberInputContainer}>
-        <TextInput
-          style={styles.numberInput}
-          maxLength={2}
-          keyboardType="number-pad"
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChangeText={changeNumberHandler}
-          value={enteredNumber}
-        ></TextInput>
-      </View>
-      <View style={styles.buttonContainer}>
-        <View style={styles.buttons}>
-          <PrimaryButton onPress={resetNumber}>Reset</PrimaryButton>
+    <ScrollView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.screen} behavior="position">
+        <View style={styles.inputContainer}>
+          <Title title={'Choose Number'} ></Title>
+          <View style={styles.numberInputContainer}>
+            <TextInput
+              style={styles.numberInput}
+              maxLength={2}
+              keyboardType="number-pad"
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={changeNumberHandler}
+              value={enteredNumber}
+            ></TextInput>
+          </View>
+          <View style={styles.buttonContainer}>
+            <View style={styles.buttons}>
+              <PrimaryButton onPress={resetNumber}>Reset</PrimaryButton>
+            </View>
+            <View style={styles.buttons}>
+              <PrimaryButton onPress={confirmHandler}>Confirm</PrimaryButton>
+            </View>
+          </View>
         </View>
-        <View style={styles.buttons}>
-          <PrimaryButton onPress={confirmHandler}>Confirm</PrimaryButton>
-        </View>
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1
+  },  
   inputContainer: {
     padding: 16,
     marginTop: 50,
